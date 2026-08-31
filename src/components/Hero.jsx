@@ -1,14 +1,14 @@
 import { ArrowRight, MessageCircle } from "lucide-react"
-import PhotoStrip from "./PhotoStrip"
+import HeroShowcase from "./HeroShowcase"
 import { company, credentials, whatsappLink, yearsOfExperience } from "../data/site"
 
 export default function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden bg-ink-950 pt-32 pb-16 sm:pt-40">
+    <section id="top" className="relative overflow-hidden bg-ink-950 pt-32 pb-24 sm:pt-40 lg:pb-32">
       <div className="bp-grid fade-edges absolute inset-0" aria-hidden="true" />
 
-      <div className="relative">
-        <div className="mx-auto max-w-3xl px-5 text-center sm:px-8">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16">
+        <div>
           <span className="inline-flex items-center gap-2.5 text-xs font-medium tracking-[0.14em] text-ink-400 uppercase">
             <span className="h-1 w-1 rounded-full bg-brand-400" />
             Chhatrapati Sambhajinagar · Maharashtra
@@ -18,14 +18,13 @@ export default function Hero() {
             Civil construction and land development.
           </h1>
 
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-pretty text-ink-300">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-pretty text-ink-300">
             {company.legalName} executes industrial civil works, solar plant infrastructure and
-            government contracts, and develops land for residential and commercial use. The firm
-            is led by a civil engineer with {yearsOfExperience} years on site, and every project is
-            supervised by our own engineers.
+            government contracts, and develops land for residential and commercial use. The firm is
+            led by a civil engineer with {yearsOfExperience} years on site.
           </p>
 
-          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
               href="#contact"
               className="group inline-flex items-center justify-center gap-2 rounded-lg bg-white px-7 py-3.5 text-sm font-semibold text-ink-950 transition hover:bg-ink-100"
@@ -46,17 +45,20 @@ export default function Hero() {
             </a>
           </div>
 
-          <ul className="mt-12 flex flex-wrap justify-center gap-x-7 gap-y-2.5">
+          <ul className="mt-11 grid gap-x-8 gap-y-2.5 sm:grid-cols-2">
             {credentials.map((item) => (
-              <li key={item} className="flex items-center gap-2 text-sm text-ink-400">
-                <span className="h-1 w-1 rounded-full bg-brand-500" aria-hidden="true" />
+              <li key={item} className="flex items-start gap-2.5 text-sm text-ink-400">
+                <span
+                  className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand-500"
+                  aria-hidden="true"
+                />
                 {item}
               </li>
             ))}
           </ul>
         </div>
 
-        <PhotoStrip />
+        <HeroShowcase />
       </div>
     </section>
   )

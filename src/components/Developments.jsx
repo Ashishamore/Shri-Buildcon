@@ -16,7 +16,11 @@ export default function Developments() {
 
         <div className="mt-16 space-y-20 lg:mt-20 lg:space-y-28">
           {developments.map((project, index) => (
-            <article key={project.id} className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            <article
+              key={project.id}
+              id={project.id}
+              className="grid scroll-mt-28 items-center gap-10 lg:grid-cols-2 lg:gap-16"
+            >
               {/* Large artwork — alternates side on wide screens */}
               <Reveal className={index % 2 === 1 ? "lg:order-2" : ""}>
                 <img

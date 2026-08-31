@@ -17,6 +17,9 @@ import rccWaterTank from "../assets/projects/rcc-water-tank.jpg"
 import siteOfficeCabin from "../assets/projects/site-office-cabin.jpg"
 import directorPhoto from "../assets/director.jpg"
 import shriParkElevation from "../assets/developments/shri-park-elevation.jpg"
+import shriParkAerial from "../assets/developments/shri-park-aerial.jpg"
+import shriParkEntrance from "../assets/developments/shri-park-entrance.jpg"
+import shreeNagariLocation from "../assets/developments/shree-nagari-location.jpg"
 import shriParkPlans from "../assets/developments/shri-park-plans.jpg"
 import shreeNagariLayout from "../assets/developments/shree-nagari-layout.jpg"
 
@@ -75,13 +78,23 @@ export const developments = [
     location: "Gut No. 140, Behind Maruti Temple, Pisadevi, Chhatrapati Sambhajinagar",
     image: shriParkElevation,
     strip: shriParkPlans,
+    views: [
+      { src: shriParkElevation, caption: "Front elevation" },
+      { src: shriParkAerial, caption: "Aerial view" },
+      { src: shriParkEntrance, caption: "Entrance and gate" },
+    ],
     summary:
       "A scheme of ground-plus-two row houses, each with covered stilt parking, built on a standard R.C.C. frame structure.",
+    heroHighlights: [
+      "18 3 BHK row houses with stilt parking",
+      "N.A., CIDCO and RERA approved",
+      "Bank finance available",
+    ],
     facts: [
-      { label: "Configuration", value: "3 BHK row houses" },
+      { label: "Configuration", value: "3 BHK row houses · 18 units" },
+      { label: "Saleable area", value: "1,729 – 2,047 sq. ft." },
       { label: "Structure", value: "R.C.C. frame, G+2 with stilt parking" },
       { label: "Sanctions", value: "N.A. · CIDCO · RERA approved" },
-      { label: "Finance", value: "Available from nationalised banks" },
     ],
     highlights: [
       "Vitrified tile flooring in all rooms",
@@ -89,6 +102,7 @@ export const developments = [
       "Concealed electrification with modular switches",
       "Powder-coated aluminium sliding windows with safety grills",
       "Sand-faced external plaster with premium paint",
+      "Finance available from nationalised banks",
     ],
     credits: "Architect: Ar. Savinay Mirkute · R.C.C. consultant: Abhiranjan Consultant",
     brochure: "/brochures/shri-park-brochure.pdf",
@@ -101,13 +115,22 @@ export const developments = [
     location:
       "Gut No. 54 (Part), Shendra Jahangir, near Limbe Chowk, Shendra Five-Star MIDC, Chhatrapati Sambhajinagar 431 001",
     image: shreeNagariLayout,
+    views: [
+      { src: shreeNagariLayout, caption: "Sanctioned layout plan", fit: "contain" },
+      { src: shreeNagariLocation, caption: "Location map", fit: "contain" },
+    ],
     summary:
       "A sanctioned residential layout on 9 m and 12 m internal roads, close to the Jalna highway and the Shendra Five-Star MIDC.",
+    heroHighlights: [
+      "64 sanctioned plots, 697 – 1,870 sq. ft.",
+      "N.A. 42 certified, AMRDA sanctioned",
+      "Cement roads, drainage and street lighting",
+    ],
     facts: [
-      { label: "Plot sizes", value: "700 – 1,200 sq. ft." },
+      { label: "Plots", value: "64 sanctioned plots" },
+      { label: "Plot sizes", value: "697 – 1,870 sq. ft." },
       { label: "Sanctions", value: "N.A. 42 certified · AMRDA approved layout" },
       { label: "Internal roads", value: "9 m and 12 m cement concrete" },
-      { label: "Finance", value: "Bank loan available" },
     ],
     highlights: [
       "Internal cement concrete roads and street lighting",
@@ -115,12 +138,12 @@ export const developments = [
       "Water well within the layout",
       "Secured compound wall on all sides",
       "Open space, children's play garden and Mahadev temple",
+      "Bank loan facility available",
     ],
     note: "Developed in association with Abhiraj Associates.",
     brochure: "/brochures/shree-nagari-brochure.pdf",
   },
 ]
-
 
 export const stats = [
   {
@@ -138,52 +161,44 @@ export const services = [
     id: "builders",
     icon: "building",
     title: "Builders & Developers",
-    summary:
-      "Land acquisition, statutory sanction and development, through to the sale of N.A. plots and completed property.",
+    summary: "Land acquisition through sanction, development and sale of N.A. plots.",
     points: [
-      "Land acquisition with title verification (7/12 and search report)",
+      "Title check and 7/12 verification",
       "Layout sanction and N.A. conversion",
-      "Internal roads, storm water drainage, water supply and compound wall",
-      "Residential and commercial plotted development",
+      "Roads, drainage and compound wall",
     ],
   },
   {
     id: "industrial",
     icon: "factory",
     title: "Industrial Civil Works",
-    summary:
-      "Foundations, R.C.C. structures, industrial flooring and site infrastructure, executed to approved drawings.",
+    summary: "Foundations, R.C.C. structures and industrial flooring, built to approved drawings.",
     points: [
       "R.C.C. and structural works",
-      "Machine foundations and industrial flooring",
-      "Pre-engineered building foundations and erection",
-      "Civil modifications and maintenance in operating plants",
+      "Machine foundations and flooring",
+      "Works inside operating plants",
     ],
   },
   {
     id: "solar",
     icon: "solar",
     title: "Solar Power Plant Works",
-    summary:
-      "Civil and allied works for solar power plants, executed as an approved vendor to Megh Engineering Ltd., Hyderabad.",
+    summary: "Civil works for solar plants, as an approved vendor to Megh Engineering Ltd.",
     points: [
-      "Module mounting structure foundations",
-      "Control room and inverter yard civil works",
-      "Site grading, cable trenching and routing",
-      "Boundary walls, drainage and approach roads",
+      "Module mounting foundations",
+      "Control room and inverter yard",
+      "Grading, trenching and access roads",
     ],
   },
   {
     id: "government",
     icon: "landmark",
     title: "Government Contracts",
-    summary:
-      "Registered government contractor executing public works to departmental specification and audit requirements.",
+    summary: "Registered contractor for public works, executed to departmental specification.",
     points: [
-      "Registered contractor for departmental tenders",
-      "Roads, buildings and public infrastructure",
-      "Measurement books and statutory documentation",
-      "Departmental quality control and billing procedure",
+      "Departmental tenders",
+      "Roads, buildings and infrastructure",
+      "Measurement books and documentation",
     ],
   },
 ]
@@ -296,15 +311,19 @@ export const projects = [
   },
 ]
 
-/** The subset that slides across the hero — landscape shots only. */
-export const heroPhotos = [
-  "plant-yard-paving",
-  "crane-bay-flooring",
-  "factory-internal-road",
-  "peb-shed-erection",
-  "foundation-raft",
-  "site-office-cabin",
-].map((id) => projects.find((project) => project.id === id))
+/** Every development view, flattened — the hero slideshow steps through these. */
+export const heroSlides = developments.flatMap((project) =>
+  project.views.map((view) => ({
+    id: `${project.id}-${view.caption}`,
+    src: view.src,
+    caption: view.caption,
+    fit: view.fit ?? "cover",
+    projectId: project.id,
+    name: project.name,
+    type: project.type,
+    status: project.status,
+  })),
+)
 
 export const process = [
   {

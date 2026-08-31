@@ -106,30 +106,6 @@
     opacity: 1;
     transform: none;
   }
-
-  /*
-   * Continuous horizontal photo strip. The track holds the slide list twice,
-   * so translating it exactly -50% loops seamlessly. Slides carry their gap as
-   * right margin rather than flex `gap`, which keeps that 50% exact.
-   */
-  .marquee-track {
-    animation: marquee-scroll 55s linear infinite;
-    will-change: transform;
-  }
-
-  .marquee:hover .marquee-track,
-  .marquee:focus-within .marquee-track {
-    animation-play-state: paused;
-  }
-}
-
-@keyframes marquee-scroll {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -141,14 +117,5 @@
     opacity: 1;
     transform: none;
     transition: none;
-  }
-
-  /* No auto-scroll — the strip becomes a normal swipeable row. */
-  .marquee-track {
-    animation: none;
-  }
-
-  .marquee {
-    overflow-x: auto;
   }
 }

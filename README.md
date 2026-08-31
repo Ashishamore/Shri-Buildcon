@@ -53,6 +53,10 @@ Everything below is marked `PLACEHOLDER` in `src/data/site.js`.
       association with Abhiraj Associates"; confirm this is how the client wants it put.
 - [ ] **Shri Park brochure** — the supplied PDF carries a "Scanned with OKEN Scanner"
       watermark on every page. Ask the client for the original.
+- [ ] **Shree Nagari plot sizes** — the brochure cover advertises "700 – 1200 sq. ft.",
+      but the plot schedule inside the same brochure lists 64 plots from 697 to
+      1,870 sq. ft. The site uses the schedule's range; confirm which the client
+      wants published.
 
 ## Notes
 
