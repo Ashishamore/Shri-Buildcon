@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Sora", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Charcoal — structure, weight, seriousness */
+  --color-ink-50: #f4f6f8;
+  --color-ink-100: #e3e9ee;
+  --color-ink-200: #c7d2dc;
+  --color-ink-300: #9faebc;
+  --color-ink-400: #708294;
+  --color-ink-500: #4f6274;
+  --color-ink-600: #3a4a59;
+  --color-ink-700: #2a3743;
+  --color-ink-800: #1a242e;
+  --color-ink-900: #111a22;
+  --color-ink-950: #0a1017;
+
+  /* Amber — the accent used sparingly for emphasis and action */
+  --color-brand-50: #fef8ec;
+  --color-brand-100: #fbebc8;
+  --color-brand-200: #f7d68d;
+  --color-brand-300: #f3be52;
+  --color-brand-400: #efa92c;
+  --color-brand-500: #e08c10;
+  --color-brand-600: #c2700b;
+  --color-brand-700: #9a530d;
+  --color-brand-800: #7e4313;
+
+  /* Warm neutral for alternating sections */
+  --color-sand-50: #faf8f4;
+  --color-sand-100: #f3efe8;
+  --color-sand-200: #e8e1d6;
+  --color-sand-300: #d8cebd;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #ffffff;
+    color: var(--color-ink-600);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--color-ink-900);
+    letter-spacing: -0.025em;
+  }
+
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
+  ::selection {
+    background: var(--color-brand-200);
+    color: var(--color-ink-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* Blueprint grid — used behind dark sections */
+  .bp-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.055) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* …and its inverse, behind light sections */
+  .bp-grid-light {
+    background-image:
+      linear-gradient(to right, rgb(17 26 34 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(17 26 34 / 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .fade-edges {
+    mask-image: radial-gradient(ellipse 80% 65% at 50% 45%, #000 40%, transparent 100%);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /*
+   * Continuous horizontal photo strip. The track holds the slide list twice,
+   * so translating it exactly -50% loops seamlessly. Slides carry their gap as
+   * right margin rather than flex `gap`, which keeps that 50% exact.
+   */
+  .marquee-track {
+    animation: marquee-scroll 55s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  /* No auto-scroll — the strip becomes a normal swipeable row. */
+  .marquee-track {
+    animation: none;
+  }
+
+  .marquee {
+    overflow-x: auto;
+  }
+}
