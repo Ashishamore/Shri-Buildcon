@@ -2,22 +2,32 @@ import { useState } from "react"
 import { Clock, Download, Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react"
 import Reveal from "./Reveal"
 import SectionHeading from "./SectionHeading"
-import { company, services, whatsappLink } from "../data/site"
+import { company, fill, whatsappLink } from "../data/site"
+import { useLanguage } from "../i18n/context"
 
-const EMPTY = { name: "", phone: "", email: "", service: services[0].title, message: "" }
-
-function validate(form) {
-  const errors = {}
-  if (form.name.trim().length < 2) errors.name = "Please enter your name."
+function validate(form, errors) {
+  const found = {}
+  if (form.name.trim().length < 2) found.name = errors.name
   if (!/^\d{10}$/.test(form.phone.replace(/\D/g, "").replace(/^91/, ""))) {
-    errors.phone = "Enter a 10-digit mobile number."
+    found.phone = errors.phone
   }
-  if (form.email && !/^\S+@\S+\.\S+$/.test(form.email)) errors.email = "Check the email address."
-  return errors
+  if (form.email && !/^\S+@\S+\.\S+$/.test(form.email)) found.email = errors.email
+  return found
 }
 
 export default function Contact() {
-  const [form, setForm] = useState(EMPTY)
+  const { t, content } = useLanguage()
+  const copy = t.contact
+
+  const empty = {
+    name: "",
+    phone: "",
+    email: "",
+    service: content.services[0].title,
+    message: "",
+  }
+
+  const [form, setForm] = useState(empty)
   const [errors, setErrors] = useState({})
   const [sent, setSent] = useState(false)
 
@@ -33,23 +43,24 @@ export default function Contact() {
    */
   function handleSubmit(event) {
     event.preventDefault()
-    const found = validate(form)
+    const found = validate(form, copy.errors)
     setErrors(found)
     if (Object.keys(found).length > 0) return
 
+    const wa = t.whatsapp
     const lines = [
-      `Website enquiry — ${company.name}`,
+      fill(wa.enquiryHeading, { name: company.name }),
       "",
-      `Name: ${form.name}`,
-      `Phone: ${form.phone}`,
-      form.email && `Email: ${form.email}`,
-      `Nature of work: ${form.service}`,
-      form.message && `Scope: ${form.message}`,
+      `${wa.fieldName}: ${form.name}`,
+      `${wa.fieldPhone}: ${form.phone}`,
+      form.email && `${wa.fieldEmail}: ${form.email}`,
+      `${wa.fieldService}: ${form.service}`,
+      form.message && `${wa.fieldScope}: ${form.message}`,
     ].filter(Boolean)
 
     window.open(whatsappLink(lines.join("\n")), "_blank", "noopener,noreferrer")
     setSent(true)
-    setForm(EMPTY)
+    setForm(empty)
   }
 
   const field =
@@ -61,9 +72,9 @@ export default function Contact() {
         <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
           <div>
             <SectionHeading
-              eyebrow="Contact"
-              title="Discuss your requirement."
-              description="Share the site location and the scope of work. We will inspect the site and issue a written estimate. There is no charge for the assessment."
+              eyebrow={copy.eyebrow}
+              title={copy.title}
+              description={copy.description}
             />
 
             <Reveal delay={100} className="mt-10 space-y-4">
@@ -75,7 +86,9 @@ export default function Contact() {
               >
                 <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" strokeWidth={2} />
                 <span>
-                  <span className="block text-sm font-semibold text-ink-900">Office</span>
+                  <span className="block text-sm font-semibold text-ink-900">
+                    {copy.officeLabel}
+                  </span>
                   <span className="mt-1 block text-sm leading-relaxed text-ink-500">
                     {company.address.lines.join(", ")}
                   </span>
@@ -89,7 +102,9 @@ export default function Contact() {
                 >
                   <Phone className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" strokeWidth={2} />
                   <span>
-                    <span className="block text-sm font-semibold text-ink-900">Call</span>
+                    <span className="block text-sm font-semibold text-ink-900">
+                      {copy.callLabel}
+                    </span>
                     <span className="mt-1 block text-sm text-ink-500">{company.phoneDisplay}</span>
                   </span>
                 </a>
@@ -100,7 +115,9 @@ export default function Contact() {
                 >
                   <Mail className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" strokeWidth={2} />
                   <span className="min-w-0">
-                    <span className="block text-sm font-semibold text-ink-900">Email</span>
+                    <span className="block text-sm font-semibold text-ink-900">
+                      {copy.emailLabel}
+                    </span>
                     <span className="mt-1 block truncate text-sm text-ink-500">
                       {company.email}
                     </span>
@@ -111,8 +128,10 @@ export default function Contact() {
               <div className="flex items-start gap-4 rounded-xl border border-sand-200 bg-white p-5">
                 <Clock className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" strokeWidth={2} />
                 <span>
-                  <span className="block text-sm font-semibold text-ink-900">Office hours</span>
-                  <span className="mt-1 block text-sm text-ink-500">{company.hours}</span>
+                  <span className="block text-sm font-semibold text-ink-900">
+                    {copy.hoursLabel}
+                  </span>
+                  <span className="mt-1 block text-sm text-ink-500">{copy.hours}</span>
                 </span>
               </div>
 
@@ -123,11 +142,9 @@ export default function Contact() {
                 <Download className="h-5 w-5 shrink-0 text-brand-400" strokeWidth={2} />
                 <span>
                   <span className="block text-sm font-semibold text-white">
-                    Company profile (PDF)
+                    {copy.profileTitle}
                   </span>
-                  <span className="mt-1 block text-sm text-ink-400">
-                    Firm profile and completed works
-                  </span>
+                  <span className="mt-1 block text-sm text-ink-400">{copy.profileNote}</span>
                 </span>
               </a>
             </Reveal>
@@ -140,22 +157,19 @@ export default function Contact() {
               noValidate
               className="rounded-2xl border border-sand-200 bg-white p-7 shadow-sm sm:p-10"
             >
-              <h3 className="text-2xl font-semibold text-ink-900">Send an enquiry</h3>
-              <p className="mt-2 text-sm text-ink-500">
-                Submitting this opens WhatsApp with your details prepared. Fields marked * are
-                required.
-              </p>
+              <h3 className="text-2xl font-semibold text-ink-900">{copy.formTitle}</h3>
+              <p className="mt-2 text-sm text-ink-500">{copy.formNote}</p>
 
               <div className="mt-8 space-y-5">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-ink-700">
-                    Full name *
+                    {copy.nameLabel}
                   </label>
                   <input
                     id="name"
                     value={form.name}
                     onChange={update("name")}
-                    placeholder="Your name"
+                    placeholder={copy.namePlaceholder}
                     className={`mt-2 ${field}`}
                     aria-invalid={Boolean(errors.name)}
                   />
@@ -165,7 +179,7 @@ export default function Contact() {
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-ink-700">
-                      Mobile number *
+                      {copy.phoneLabel}
                     </label>
                     <input
                       id="phone"
@@ -173,7 +187,7 @@ export default function Contact() {
                       inputMode="tel"
                       value={form.phone}
                       onChange={update("phone")}
-                      placeholder="10-digit mobile number"
+                      placeholder={copy.phonePlaceholder}
                       className={`mt-2 ${field}`}
                       aria-invalid={Boolean(errors.phone)}
                     />
@@ -182,14 +196,14 @@ export default function Contact() {
 
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-ink-700">
-                      Email
+                      {copy.emailLabelOptional}
                     </label>
                     <input
                       id="email"
                       type="email"
                       value={form.email}
                       onChange={update("email")}
-                      placeholder="Optional"
+                      placeholder={copy.emailPlaceholder}
                       className={`mt-2 ${field}`}
                       aria-invalid={Boolean(errors.email)}
                     />
@@ -199,7 +213,7 @@ export default function Contact() {
 
                 <div>
                   <label htmlFor="service" className="block text-sm font-medium text-ink-700">
-                    Nature of work
+                    {copy.serviceLabel}
                   </label>
                   <select
                     id="service"
@@ -207,23 +221,23 @@ export default function Contact() {
                     onChange={update("service")}
                     className={`mt-2 ${field}`}
                   >
-                    {services.map((service) => (
+                    {content.services.map((service) => (
                       <option key={service.id}>{service.title}</option>
                     ))}
-                    <option>Other</option>
+                    <option>{copy.otherOption}</option>
                   </select>
                 </div>
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-ink-700">
-                    Scope and details
+                    {copy.detailsLabel}
                   </label>
                   <textarea
                     id="message"
                     rows={4}
                     value={form.message}
                     onChange={update("message")}
-                    placeholder="Site location, approximate area and scope of work."
+                    placeholder={copy.detailsPlaceholder}
                     className={`mt-2 resize-none ${field}`}
                   />
                 </div>
@@ -234,7 +248,7 @@ export default function Contact() {
                 className="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-ink-900 px-6 py-4 text-sm font-semibold text-white transition hover:bg-ink-800"
               >
                 <Send className="h-4 w-4" />
-                Send via WhatsApp
+                {copy.submit}
               </button>
 
               {sent && (
@@ -243,8 +257,7 @@ export default function Contact() {
                   className="mt-4 flex items-center gap-2 rounded-lg bg-sand-100 px-4 py-3 text-sm text-ink-700"
                 >
                   <MessageCircle className="h-4 w-4 shrink-0" />
-                  WhatsApp should have opened in a new tab — send the message from there. If it
-                  did not open, please call {company.phoneDisplay}.
+                  {copy.sent} {company.phoneDisplay}.
                 </p>
               )}
             </form>

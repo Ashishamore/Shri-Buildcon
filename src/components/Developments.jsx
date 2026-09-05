@@ -1,21 +1,24 @@
 import { Download, MapPin, MessageCircle } from "lucide-react"
 import Reveal from "./Reveal"
 import SectionHeading from "./SectionHeading"
-import { developments, whatsappLink } from "../data/site"
+import { fill, whatsappLink } from "../data/site"
+import { useLanguage } from "../i18n/context"
 
 export default function Developments() {
+  const { t, content } = useLanguage()
+
   return (
     <section id="developments" className="bg-sand-50 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="Our developments"
-          title="Homes and plots under development."
-          description="Sanctioned schemes open for booking. Each brochure carries the plans, specifications and location map in full."
+          eyebrow={t.developments.eyebrow}
+          title={t.developments.title}
+          description={t.developments.description}
           align="center"
         />
 
         <div className="mt-16 space-y-20 lg:mt-20 lg:space-y-28">
-          {developments.map((project, index) => (
+          {content.developments.map((project, index) => (
             <article
               key={project.id}
               id={project.id}
@@ -32,7 +35,7 @@ export default function Developments() {
                 {project.strip && (
                   <img
                     src={project.strip}
-                    alt={`${project.name} floor plans`}
+                    alt={`${project.name} — ${project.type}`}
                     loading="lazy"
                     className="mt-4 w-full rounded-xl border border-sand-200 bg-white"
                   />
@@ -89,18 +92,18 @@ export default function Developments() {
                     className="inline-flex items-center justify-center gap-2 rounded-lg bg-ink-900 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-ink-800"
                   >
                     <Download className="h-4 w-4" />
-                    Download brochure
+                    {t.developments.download}
                   </a>
                   <a
                     href={whatsappLink(
-                      `I would like to enquire about ${project.name}. (Sent from your website)`,
+                      fill(t.whatsapp.projectMessage, { project: project.name }),
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 rounded-lg border border-ink-200 px-6 py-3.5 text-sm font-semibold text-ink-800 transition hover:border-ink-400 hover:bg-white"
                   >
                     <MessageCircle className="h-4 w-4" />
-                    Enquire on WhatsApp
+                    {t.developments.enquire}
                   </a>
                 </div>
               </Reveal>

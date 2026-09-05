@@ -1,7 +1,7 @@
 import { GraduationCap, Handshake, MessageSquare, Scale } from "lucide-react"
 import Reveal from "./Reveal"
 import SectionHeading from "./SectionHeading"
-import { mission, process, values, vision } from "../data/site"
+import { useLanguage } from "../i18n/context"
 
 const ICONS = {
   handshake: Handshake,
@@ -11,19 +11,21 @@ const ICONS = {
 }
 
 export default function Approach() {
+  const { t } = useLanguage()
+
   return (
     <section id="approach" className="bg-sand-50">
       {/* How we work */}
       <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:py-32">
         <SectionHeading
-          eyebrow="Our process"
-          title="Four stages, applied to every project."
-          description="The same procedure governs a plotted layout, an industrial shed and a departmental contract."
+          eyebrow={t.approach.eyebrow}
+          title={t.approach.title}
+          description={t.approach.description}
           align="center"
         />
 
         <ol className="mt-16 grid gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
-          {process.map((item, i) => (
+          {t.approach.steps.map((item, i) => (
             <Reveal as="li" key={item.step} delay={i * 90} className="relative lg:pr-6">
               <span
                 className="absolute -top-4 left-0 font-display text-6xl font-bold text-ink-900/[0.05]"
@@ -54,18 +56,20 @@ export default function Approach() {
         <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-8 lg:grid-cols-2 lg:gap-20 lg:py-32">
           <Reveal>
             <p className="text-xs font-semibold tracking-[0.18em] text-brand-400 uppercase">
-              Our vision
+              {t.approach.visionLabel}
             </p>
             <p className="mt-6 font-display text-2xl leading-snug font-medium text-balance text-white sm:text-3xl">
-              {vision}
+              {t.approach.vision}
             </p>
           </Reveal>
 
           <Reveal delay={120} className="lg:border-l lg:border-white/10 lg:pl-20">
             <p className="text-xs font-semibold tracking-[0.18em] text-brand-400 uppercase">
-              Our mission
+              {t.approach.missionLabel}
             </p>
-            <p className="mt-6 text-lg leading-relaxed text-pretty text-ink-300">{mission}</p>
+            <p className="mt-6 text-lg leading-relaxed text-pretty text-ink-300">
+              {t.approach.mission}
+            </p>
           </Reveal>
         </div>
       </div>
@@ -73,14 +77,14 @@ export default function Approach() {
       {/* Values */}
       <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:py-32">
         <SectionHeading
-          eyebrow="How we operate"
-          title="The commitments behind the contract."
-          description="Cost and schedule are contractual obligations. These four determine whether a client returns."
+          eyebrow={t.approach.valuesEyebrow}
+          title={t.approach.valuesTitle}
+          description={t.approach.valuesDescription}
           align="center"
         />
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {values.map((value, i) => {
+          {t.approach.values.map((value, i) => {
             const Icon = ICONS[value.icon]
             return (
               <Reveal

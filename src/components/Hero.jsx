@@ -1,8 +1,11 @@
 import { ArrowRight, MessageCircle } from "lucide-react"
 import HeroShowcase from "./HeroShowcase"
-import { company, credentials, whatsappLink, yearsOfExperience } from "../data/site"
+import { company, fill, whatsappLink } from "../data/site"
+import { useLanguage } from "../i18n/context"
 
 export default function Hero() {
+  const { t } = useLanguage()
+
   return (
     <section id="top" className="relative overflow-hidden bg-ink-950 pt-32 pb-24 sm:pt-40 lg:pb-32">
       <div className="bp-grid fade-edges absolute inset-0" aria-hidden="true" />
@@ -11,17 +14,15 @@ export default function Hero() {
         <div>
           <span className="inline-flex items-center gap-2.5 text-xs font-medium tracking-[0.14em] text-ink-400 uppercase">
             <span className="h-1 w-1 rounded-full bg-brand-400" />
-            Chhatrapati Sambhajinagar · Maharashtra
+            {t.hero.eyebrow}
           </span>
 
           <h1 className="mt-6 text-4xl leading-[1.12] font-semibold text-balance text-white sm:text-5xl">
-            Civil construction and land development.
+            {t.hero.title}
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-pretty text-ink-300">
-            {company.legalName} executes industrial civil works, solar plant infrastructure and
-            government contracts, and develops land for residential and commercial use. The firm is
-            led by a civil engineer with {yearsOfExperience} years on site.
+            <span className="font-semibold text-white">{company.legalName}</span> {t.hero.intro}
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -29,24 +30,22 @@ export default function Hero() {
               href="#contact"
               className="group inline-flex items-center justify-center gap-2 rounded-lg bg-white px-7 py-3.5 text-sm font-semibold text-ink-950 transition hover:bg-ink-100"
             >
-              Request a site visit
+              {t.hero.visit}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </a>
             <a
-              href={whatsappLink(
-                `I would like to discuss a project with ${company.name}. (Sent from your website)`,
-              )}
+              href={whatsappLink(fill(t.whatsapp.heroMessage, { name: company.name }))}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/20 px-7 py-3.5 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
             >
               <MessageCircle className="h-4 w-4" />
-              WhatsApp
+              {t.hero.whatsapp}
             </a>
           </div>
 
           <ul className="mt-11 grid gap-x-8 gap-y-2.5 sm:grid-cols-2">
-            {credentials.map((item) => (
+            {t.hero.credentials.map((item) => (
               <li key={item} className="flex items-start gap-2.5 text-sm text-ink-400">
                 <span
                   className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand-500"

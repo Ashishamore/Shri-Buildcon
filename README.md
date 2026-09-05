@@ -71,8 +71,9 @@ Everything below is marked `PLACEHOLDER` in `src/data/site.js`.
 - [ ] **Office hours**.
 - [ ] **Company profile PDF** — the contact card and footer link to
       `/company-profile.pdf`; drop the file into `public/`.
-- [ ] **Director photograph** — `src/assets/director.jpg` is AI-generated. Replace with
-      a real photograph of Pradip Kale.
+- [ ] **Director photograph** — the AI-generated placeholder has been removed and the
+      leadership section is now built around the quote instead. If the client supplies a
+      real photograph of Pradip Kale, the section can take a portrait column back.
 - [ ] **Civil works captions** — titles and descriptions in the projects gallery were
       read off the photographs. Confirm them, and fill in the blank `location` and
       `year` fields (the caption switches to those automatically once set).

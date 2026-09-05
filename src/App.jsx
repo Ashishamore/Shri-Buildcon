@@ -1,3 +1,4 @@
+import LanguageProvider from "./i18n/LanguageProvider"
 import Header from "./components/Header"
 import Hero from "./components/Hero"
 import Stats from "./components/Stats"
@@ -14,7 +15,7 @@ import WhatsAppButton from "./components/WhatsAppButton"
 
 export default function App() {
   return (
-    <>
+    <LanguageProvider>
       <Header />
       <main>
         <Hero />
@@ -30,6 +31,6 @@ export default function App() {
       </main>
       <Footer />
       <WhatsAppButton />
-    </>
+    </LanguageProvider>
   )
 }

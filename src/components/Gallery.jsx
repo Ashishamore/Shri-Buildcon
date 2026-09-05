@@ -3,15 +3,19 @@ import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react"
 import Reveal from "./Reveal"
 import SectionHeading from "./SectionHeading"
 import SitePhoto from "./SitePhoto"
-import { projectCategories, projects } from "../data/site"
+import { useLanguage } from "../i18n/context"
 
 export default function Gallery() {
+  const { t, content } = useLanguage()
   const [filter, setFilter] = useState("all")
   const [active, setActive] = useState(null)
 
   const visible = useMemo(
-    () => (filter === "all" ? projects : projects.filter((p) => p.category === filter)),
-    [filter],
+    () =>
+      filter === "all"
+        ? content.projects
+        : content.projects.filter((p) => p.category === filter),
+    [filter, content.projects],
   )
 
   const open = active !== null
@@ -49,15 +53,15 @@ export default function Gallery() {
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="Completed projects"
-          title="Recent work."
-          description="Industrial civil works executed for manufacturing and processing units, much of it carried out inside operating plants."
+          eyebrow={t.gallery.eyebrow}
+          title={t.gallery.title}
+          description={t.gallery.description}
           tone="dark"
           align="center"
         />
 
         <Reveal delay={80} className="mt-12 flex flex-wrap justify-center gap-2.5">
-          {projectCategories.map((category) => {
+          {content.categories.map((category) => {
             const selected = filter === category.id
             return (
               <button
@@ -88,7 +92,7 @@ export default function Gallery() {
                 <SitePhoto project={project} className="aspect-4/3" />
                 <span className="absolute top-4 right-4 flex h-9 w-9 items-center justify-center rounded-full bg-ink-950/70 text-white opacity-0 backdrop-blur-sm transition group-hover:opacity-100">
                   <Expand className="h-4 w-4" />
-                  <span className="sr-only">View larger</span>
+                  <span className="sr-only">{t.gallery.viewLarger}</span>
                 </span>
               </button>
             </Reveal>
@@ -107,7 +111,7 @@ export default function Gallery() {
           <button
             type="button"
             onClick={() => setActive(null)}
-            aria-label="Close"
+            aria-label={t.gallery.close}
             className="absolute top-5 right-5 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition hover:bg-white/10"
           >
             <X className="h-5 w-5" />
@@ -142,7 +146,7 @@ export default function Gallery() {
                 <button
                   type="button"
                   onClick={() => step(-1)}
-                  aria-label="Previous project"
+                  aria-label={t.gallery.previous}
                   className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition hover:bg-white/10"
                 >
                   <ChevronLeft className="h-5 w-5" />
@@ -150,7 +154,7 @@ export default function Gallery() {
                 <button
                   type="button"
                   onClick={() => step(1)}
-                  aria-label="Next project"
+                  aria-label={t.gallery.next}
                   className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition hover:bg-white/10"
                 >
                   <ChevronRight className="h-5 w-5" />

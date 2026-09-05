@@ -1,11 +1,13 @@
 import Reveal from "./Reveal"
-import { stats } from "../data/site"
+import { useLanguage } from "../i18n/context"
 
 export default function Stats() {
+  const { t } = useLanguage()
+
   return (
     <section className="border-y border-ink-100 bg-white">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-10 px-5 py-14 sm:px-8 lg:grid-cols-4 lg:py-16">
-        {stats.map((stat, i) => (
+        {t.stats.map((stat, i) => (
           <Reveal
             key={stat.label}
             delay={i * 80}

@@ -1,15 +1,19 @@
 import logoColour from "../assets/logo.png"
 import logoOnDark from "../assets/logo-on-dark.png"
 import { company } from "../data/site"
+import { useLanguage } from "../i18n/context"
 
 /**
- * Logo lockup: the firm's mark beside the wordmark.
+ * Logo lockup, set to the supplied artwork: SHREE bold in orange, BUILDCON
+ * light in blue, a rule beneath, then the descriptor line spaced out to match.
  *
- * `tone` describes the surface it sits on. On a dark surface the mark's blue
- * reads as white; on a light one it shows in full colour. Both are stacked and
- * cross-faded, so the colour comes up as the header turns solid on scroll.
+ * `tone` describes the surface it sits on. On a dark ground the mark's blue and
+ * the blue half of the wordmark both read as white; on a light one they show in
+ * full colour. The two marks are stacked and cross-faded, so the colour comes
+ * up as the header turns solid on scroll.
  */
 export default function Logo({ tone = "light", showTagline = true, className = "" }) {
+  const { t } = useLanguage()
   const onDark = tone === "dark"
 
   return (
@@ -32,23 +36,34 @@ export default function Logo({ tone = "light", showTagline = true, className = "
         />
       </span>
 
-      <span className="flex flex-col leading-none">
-        <span
-          className={`text-xl tracking-wide uppercase sm:text-2xl ${
-            onDark ? "text-white" : "text-ink-900"
-          }`}
-        >
-          <span className="font-wordmark font-bold">{company.wordmark.bold}</span>
-          <span className="font-wordmark-light font-light">{company.wordmark.light}</span>
-        </span>
-        {showTagline && (
+      <span className="flex flex-col items-stretch leading-none">
+        <span className="text-xl tracking-tight uppercase sm:text-2xl">
+          <span className="font-wordmark font-bold text-logo-orange">{company.wordmark.bold}</span>
           <span
-            className={`mt-1.5 text-[10px] font-semibold tracking-[0.16em] uppercase ${
-              onDark ? "text-brand-300" : "text-ink-400"
+            className={`font-wordmark-light font-light transition-colors duration-500 ${
+              onDark ? "text-white" : "text-logo-blue"
             }`}
           >
-            {company.tagline}
+            {company.wordmark.light}
           </span>
+        </span>
+
+        {showTagline && (
+          <>
+            <span
+              aria-hidden="true"
+              className={`mt-1.5 block h-px w-full transition-colors duration-500 ${
+                onDark ? "bg-white/35" : "bg-ink-400"
+              }`}
+            />
+            <span
+              className={`mt-1.5 block text-center text-[9px] font-medium tracking-[0.3em] uppercase transition-colors duration-500 ${
+                onDark ? "text-ink-300" : "text-ink-700"
+              }`}
+            >
+              {t.tagline}
+            </span>
+          </>
         )}
       </span>
     </span>

@@ -1,7 +1,7 @@
 import { ArrowRight, Building2, Factory, Landmark, SunMedium } from "lucide-react"
 import Reveal from "./Reveal"
 import SectionHeading from "./SectionHeading"
-import { services } from "../data/site"
+import { useLanguage } from "../i18n/context"
 
 const ICONS = {
   building: Building2,
@@ -11,28 +11,30 @@ const ICONS = {
 }
 
 export default function Services() {
+  const { t, content } = useLanguage()
+
   return (
     <section id="services" className="bg-white py-24 lg:py-32">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,21rem)_minmax(0,1fr)] lg:gap-20">
         {/* The heading holds its place while the divisions scroll past it */}
         <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionHeading
-            eyebrow="Our services"
-            title="Four divisions, one execution team."
-            description="Land, structure and site infrastructure handled by the same engineers — no handover gaps between contractors."
+            eyebrow={t.services.eyebrow}
+            title={t.services.title}
+            description={t.services.description}
           />
 
           <a
             href="#contact"
             className="group mt-8 inline-flex items-center gap-2 rounded-lg bg-ink-900 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-ink-800"
           >
-            Discuss your requirement
+            {t.services.cta}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </a>
         </div>
 
         <div className="border-t border-ink-100">
-          {services.map((service, i) => {
+          {content.services.map((service, i) => {
             const Icon = ICONS[service.icon]
             return (
               <Reveal

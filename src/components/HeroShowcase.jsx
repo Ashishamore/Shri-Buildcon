@@ -1,20 +1,15 @@
 import { useEffect, useState } from "react"
 import { ArrowRight } from "lucide-react"
-import { heroSlides } from "../data/site"
+import { useLanguage } from "../i18n/context"
 
 const INTERVAL = 3000
-const LAST = heroSlides.length
-
-/*
- * The first slide is repeated at the end of the track. Passing the real last
- * slide, we keep moving forward onto that copy, then silently snap back to the
- * real first slide with the transition switched off — so the loop never runs
- * backwards through every slide to get home.
- */
-const track = [...heroSlides, heroSlides[0]]
 
 /** Auto-advancing showcase of the current developments, beside the hero copy. */
 export default function HeroShowcase() {
+  const { t, content } = useLanguage()
+  const slides = content.heroSlides
+  const last = slides.length
+
   const [index, setIndex] = useState(0)
   const [animate, setAnimate] = useState(true)
   const [paused, setPaused] = useState(false)
@@ -30,10 +25,10 @@ export default function HeroShowcase() {
   }, [])
 
   useEffect(() => {
-    if (paused || reduced || heroSlides.length < 2) return
-    const timer = setInterval(() => setIndex((i) => (i >= LAST ? 0 : i + 1)), INTERVAL)
+    if (paused || reduced || slides.length < 2) return
+    const timer = setInterval(() => setIndex((i) => (i >= last ? 0 : i + 1)), INTERVAL)
     return () => clearInterval(timer)
-  }, [paused, reduced])
+  }, [paused, reduced, slides.length, last])
 
   // Re-arm the transition only once the un-animated snap has painted.
   useEffect(() => {
@@ -50,15 +45,20 @@ export default function HeroShowcase() {
 
   function handleTransitionEnd(event) {
     if (event.target !== event.currentTarget || event.propertyName !== "transform") return
-    if (index === LAST) {
+    if (index === last) {
       setAnimate(false)
       setIndex(0)
     }
   }
 
-  // On the trailing copy we are really looking at the first slide again.
-  const current = index % heroSlides.length
-  const slide = heroSlides[current]
+  /*
+   * The first slide is repeated at the end of the track. Passing the real last
+   * slide, we keep moving forward onto that copy, then silently snap back with
+   * the transition off — so the loop never rewinds through every slide.
+   */
+  const track = [...slides, slides[0]]
+  const current = index % slides.length
+  const slide = slides[current]
 
   return (
     <div
@@ -71,7 +71,9 @@ export default function HeroShowcase() {
       <div className="relative aspect-16/10 overflow-hidden bg-ink-900">
         <div
           className={`flex h-full ${
-            animate ? "transition-transform duration-700 ease-out motion-reduce:transition-none" : ""
+            animate
+              ? "transition-transform duration-700 ease-out motion-reduce:transition-none"
+              : ""
           }`}
           style={{ transform: `translateX(-${index * 100}%)` }}
           onTransitionEnd={handleTransitionEnd}
@@ -80,8 +82,8 @@ export default function HeroShowcase() {
             <div key={`${item.id}-${i}`} className="h-full w-full shrink-0">
               <img
                 src={item.src}
-                alt={i === LAST ? "" : `${item.name} — ${item.caption}`}
-                aria-hidden={i === LAST}
+                alt={i === last ? "" : `${item.name} — ${item.caption}`}
+                aria-hidden={i === last}
                 loading={i === 0 ? "eager" : "lazy"}
                 className={`h-full w-full ${
                   item.fit === "contain" ? "object-contain p-3" : "object-cover"
@@ -109,17 +111,17 @@ export default function HeroShowcase() {
             href={`#${slide.projectId}`}
             className="group inline-flex items-center gap-2 rounded-lg bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/20"
           >
-            View project details
+            {t.showcase.cta}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </a>
 
           <div className="flex shrink-0 items-center gap-2">
-            {heroSlides.map((item, i) => (
+            {slides.map((item, i) => (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => setIndex(i)}
-                aria-label={`Show ${item.name}, ${item.caption}`}
+                aria-label={`${item.name} — ${item.caption}`}
                 aria-current={i === current}
                 className={`h-2 rounded-full transition-all ${
                   i === current ? "w-6 bg-brand-400" : "w-2 bg-white/25 hover:bg-white/50"
