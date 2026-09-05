@@ -29,6 +29,27 @@ npm run lint     # oxlint
 Page order: hero → stats → about → leadership → services → developments →
 civil works gallery → process, vision and values → testimonials → contact.
 
+## Deployment
+
+Hosted on Netlify, built from `main`.
+
+1. In Netlify, **Add new site → Import an existing project** and pick this repository.
+2. Leave the build settings alone — `netlify.toml` already sets the command, the
+   publish directory and the Node version.
+3. Deploy. Every push to `main` rebuilds automatically.
+
+The build command is `VITE_SITE_URL=$URL npm run build`. Netlify sets `$URL` to the
+site's primary address, so the Open Graph tags resolve against the real host — the
+`*.netlify.app` subdomain at first, then the custom domain once one is attached. No
+code change is needed when the domain moves.
+
+A link preview only works for a publicly reachable URL. `localhost` cannot be
+crawled, so previews will not appear until the site is deployed. After the first
+deploy, previews are cached per URL by each platform; force a refresh with
+[Facebook's Sharing Debugger](https://developers.facebook.com/tools/debug/) and
+[LinkedIn's Post Inspector](https://www.linkedin.com/post-inspector/). WhatsApp has
+no manual tool — append a dummy query string (`?v=2`) to test a fresh fetch.
+
 ## Before this goes live
 
 Everything below is marked `PLACEHOLDER` in `src/data/site.js`.
@@ -40,9 +61,8 @@ Everything below is marked `PLACEHOLDER` in `src/data/site.js`.
       *director* began working on site, not when the firm was registered. The site
       currently makes no "established" claim; add one once the year is confirmed.
 - [ ] **Email address** — `info@shribuildcon.in` is assumed.
-- [ ] **Domain** — `VITE_SITE_URL` in `.env` is set to `https://shribuildcon.in`, which
-      is a guess. Link previews will show no image until this matches the real
-      address, because crawlers cannot resolve a relative image path.
+- [ ] **Domain** — point `shribuildcon.in` at the Netlify site once it is registered.
+      Nothing in the code needs changing: the build reads the address from Netlify.
 - [ ] **Office hours**.
 - [ ] **Company profile PDF** — the contact card and footer link to
       `/company-profile.pdf`; drop the file into `public/`.

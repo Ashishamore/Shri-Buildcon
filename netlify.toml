@@ -1,0 +1,28 @@
+[build]
+  # Netlify sets $URL to the site's primary address — the custom domain once one
+  # is attached, otherwise the *.netlify.app subdomain. Passing it to Vite keeps
+  # the link-preview meta tags pointing at the real host, so og:image resolves
+  # without anyone editing .env. Set in the environment, it overrides the local
+  # default in .env.
+  command = "VITE_SITE_URL=$URL npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Vite fingerprints these filenames, so they can be cached indefinitely.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    cache-control = "public, max-age=31536000, immutable"
+
+# The share card and brochures keep stable names, so cache them briefly instead.
+[[headers]]
+  for = "/share-image.jpg"
+  [headers.values]
+    cache-control = "public, max-age=3600"
+
+[[headers]]
+  for = "/brochures/*"
+  [headers.values]
+    cache-control = "public, max-age=86400"
