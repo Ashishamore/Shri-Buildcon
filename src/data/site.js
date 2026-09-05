@@ -34,7 +34,7 @@ export const company = {
   phoneHref: "tel:+919637918081",
   whatsapp: "919637918081",
   email: "info@shreebuildcon.in", // PLACEHOLDER — confirm the real address
-  brochureUrl: "/company-profile.pdf", // drop the PDF at public/company-profile.pdf
+  brochureUrl: "/company-profile.pdf", // served from public/
   address: {
     lines: [
       "Gut No. 100, Near Pisadevi Mandir",

@@ -69,8 +69,8 @@ Everything below is marked `PLACEHOLDER` in `src/data/site.js`.
 - [ ] **Domain** — point `shreebuildcon.in` at the Netlify site once it is registered.
       Nothing in the code needs changing: the build reads the address from Netlify.
 - [ ] **Office hours**.
-- [ ] **Company profile PDF** — the contact card and footer link to
-      `/company-profile.pdf`; drop the file into `public/`.
+- [x] **Company profile PDF** — supplied and served from
+      `public/company-profile.pdf` (10 pages, 3.3 MB).
 - [ ] **Director photograph** — the AI-generated placeholder has been removed and the
       leadership section is now built around the quote instead. If the client supplies a
       real photograph of Pradip Kale, the section can take a portrait column back.
