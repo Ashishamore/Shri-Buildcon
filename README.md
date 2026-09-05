@@ -1,6 +1,6 @@
-# Shri Buildcon
+# ShreeBuildcon
 
-Marketing website for **Shri Buildcon — Builders & Developers**, a civil contracting,
+Marketing website for **ShreeBuildcon — Builders & Developers**, a civil contracting,
 building and land development firm at Pisadevi, Chhatrapati Sambhajinagar.
 
 Single page, built with React 19, Vite 8 and Tailwind CSS 4.
@@ -60,8 +60,13 @@ Everything below is marked `PLACEHOLDER` in `src/data/site.js`.
 - [ ] **Firm establishment year** — unknown. `EXPERIENCE_SINCE = 2007` is when the
       *director* began working on site, not when the firm was registered. The site
       currently makes no "established" claim; add one once the year is confirmed.
-- [ ] **Email address** — `info@shribuildcon.in` is assumed.
-- [ ] **Domain** — point `shribuildcon.in` at the Netlify site once it is registered.
+- [ ] **Email address** — `info@shreebuildcon.in` is assumed.
+- [ ] **Wordmark font** — the lockup is set in HP Simplified, HP's proprietary
+      corporate typeface. It renders only for viewers who have it installed;
+      everyone else sees the Source Sans 3 fallback. Self-hosting the files would
+      likely breach its licence, so either confirm a licence that allows web
+      embedding, or settle on a free face.
+- [ ] **Domain** — point `shreebuildcon.in` at the Netlify site once it is registered.
       Nothing in the code needs changing: the build reads the address from Netlify.
 - [ ] **Office hours**.
 - [ ] **Company profile PDF** — the contact card and footer link to
@@ -94,3 +99,8 @@ Everything below is marked `PLACEHOLDER` in `src/data/site.js`.
   time, so the absolute URLs only need changing in `.env`.
 - `.env` holds public build-time configuration only. Never put secrets in a `VITE_`
   variable — they are embedded into the client bundle.
+- Logo assets come from the client's vector PDF, rendered at 600 dpi with
+  transparency. `src/assets/logo.png` is the full-colour mark;
+  `src/assets/logo-on-dark.png` recolours its blue to a white-to-grey ramp for dark
+  surfaces. The header cross-fades between them on scroll, and the footer and share
+  card use the dark-surface version.

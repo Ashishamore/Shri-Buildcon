@@ -1,45 +1,49 @@
+import logoColour from "../assets/logo.png"
+import logoOnDark from "../assets/logo-on-dark.png"
 import { company } from "../data/site"
 
 /**
- * Monogram + wordmark lockup.
- * `tone` describes the surface it sits on, not the mark itself.
+ * Logo lockup: the firm's mark beside the wordmark.
  *
- * The mark is a drawn "S" — if the firm name changes, redraw this path and the
- * matching one in public/logo-mark.svg (used as the favicon).
+ * `tone` describes the surface it sits on. On a dark surface the mark's blue
+ * reads as white; on a light one it shows in full colour. Both are stacked and
+ * cross-faded, so the colour comes up as the header turns solid on scroll.
  */
 export default function Logo({ tone = "light", showTagline = true, className = "" }) {
   const onDark = tone === "dark"
 
   return (
     <span className={`flex items-center gap-3 ${className}`}>
-      <svg
-        viewBox="0 0 48 48"
-        className="h-10 w-10 shrink-0"
-        role="img"
-        aria-label={`${company.name} logo`}
-      >
-        <rect width="48" height="48" rx="11" fill={onDark ? "#E08C10" : "#111A22"} />
-        <path
-          d="M30 13A7.5 7.5 0 1 0 24 24.5 7.5 7.5 0 1 1 18 36"
-          transform="translate(24 24) scale(0.88) translate(-24 -24)"
-          fill="none"
-          stroke={onDark ? "#111A22" : "#E08C10"}
-          strokeWidth="5.4"
-          strokeLinecap="round"
+      <span className="relative block aspect-393/512 h-11 shrink-0">
+        <img
+          src={logoColour}
+          alt={`${company.name} logo`}
+          className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-500 ${
+            onDark ? "opacity-0" : "opacity-100"
+          }`}
         />
-      </svg>
+        <img
+          src={logoOnDark}
+          alt=""
+          aria-hidden="true"
+          className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-500 ${
+            onDark ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      </span>
 
       <span className="flex flex-col leading-none">
         <span
-          className={`font-display text-xl font-bold tracking-tight sm:text-2xl ${
+          className={`text-xl tracking-wide uppercase sm:text-2xl ${
             onDark ? "text-white" : "text-ink-900"
           }`}
         >
-          {company.name}
+          <span className="font-wordmark font-bold">{company.wordmark.bold}</span>
+          <span className="font-wordmark-light font-light">{company.wordmark.light}</span>
         </span>
         {showTagline && (
           <span
-            className={`mt-1 text-[10px] font-semibold tracking-[0.16em] uppercase ${
+            className={`mt-1.5 text-[10px] font-semibold tracking-[0.16em] uppercase ${
               onDark ? "text-brand-300" : "text-ink-400"
             }`}
           >

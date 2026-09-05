@@ -32,13 +32,15 @@ export const EXPERIENCE_SINCE = 2007
 export const yearsOfExperience = new Date().getFullYear() - EXPERIENCE_SINCE
 
 export const company = {
-  name: "Shri Buildcon",
-  legalName: "Shri Buildcon", // update if the registered name is longer (Pvt. Ltd. etc.)
+  name: "ShreeBuildcon",
+  legalName: "ShreeBuildcon", // update if the registered name is longer (Pvt. Ltd. etc.)
+  // Logo lockup: set in HP Simplified, first part bold, second light, all caps.
+  wordmark: { bold: "Shree", light: "Buildcon" },
   tagline: "Builders & Developers",
   phoneDisplay: "+91 96379 18081",
   phoneHref: "tel:+919637918081",
   whatsapp: "919637918081",
-  email: "info@shribuildcon.in", // PLACEHOLDER — confirm the real address
+  email: "info@shreebuildcon.in", // PLACEHOLDER — confirm the real address
   hours: "Monday to Saturday · 9:30 am to 7:00 pm", // PLACEHOLDER
   brochureUrl: "/company-profile.pdf", // drop the PDF at public/company-profile.pdf
   address: {

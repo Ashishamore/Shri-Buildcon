@@ -27,6 +27,7 @@ export default function Header() {
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
         <a href="#top" aria-label={`${company.name} — home`}>
+          {/* White over the dark hero; full colour once the bar turns solid */}
           <Logo tone={solid ? "light" : "dark"} />
         </a>
 
