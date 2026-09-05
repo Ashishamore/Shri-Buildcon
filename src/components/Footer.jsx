@@ -47,6 +47,7 @@ export default function Footer() {
               <li>
                 <a
                   href={company.brochureUrl}
+                  download={company.brochureFileName}
                   className="text-sm text-ink-400 transition-colors hover:text-brand-400"
                 >
                   {t.footer.profileLink}

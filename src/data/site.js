@@ -35,6 +35,7 @@ export const company = {
   whatsapp: "919637918081",
   email: "info@shreebuildcon.in", // PLACEHOLDER — confirm the real address
   brochureUrl: "/company-profile.pdf", // served from public/
+  brochureFileName: "ShreeBuildcon-Company-Profile.pdf", // name the file saves as
   address: {
     lines: [
       "Gut No. 100, Near Pisadevi Mandir",

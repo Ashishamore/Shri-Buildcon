@@ -137,6 +137,7 @@ export default function Contact() {
 
               <a
                 href={company.brochureUrl}
+                download={company.brochureFileName}
                 className="flex items-center gap-4 rounded-xl bg-ink-900 p-5 transition hover:bg-ink-800"
               >
                 <Download className="h-5 w-5 shrink-0 text-brand-400" strokeWidth={2} />
